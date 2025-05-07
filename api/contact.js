@@ -5,9 +5,9 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { first_name, email, phone, message } = req.body;
+  const { name, email, phone, message } = req.body;
 
-  if (!first_name || !email || !phone || !message) {
+  if (!name || !email || !phone || !message) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
@@ -15,16 +15,16 @@ export default async function handler(req, res) {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.GMAILUSER,
-        pass: process.env.GMAILAPPPASSWORD,
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASSWORD,
       },
     });
 
     const mailOptions = {
-      from: process.env.GMAILUSER,
-      to: process.env.GMAILUSER,
-      subject: `New Contact Form Message from ${first_name}`,
-      text: `Name: ${first_name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}`,
+      from: process.env.GMAIL_USER,
+      to: process.env.GMAIL_USER,
+      subject: `New Contact Form Message from ${name}`,
+      text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}`,
     };
 
     await transporter.sendMail(mailOptions);
