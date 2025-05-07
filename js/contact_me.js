@@ -23,7 +23,7 @@ $(function() {
         url: "/api/contact",
         type: "POST",
         data: {
-          name: name,
+          first_name: name,
           phone: phone,
           email: email,
           message: message
