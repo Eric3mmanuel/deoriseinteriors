@@ -631,7 +631,7 @@ customer satisfaction .">
 					<div class="col-md-12">
 						<div class="contact_form">
 							<div id="message"></div>
-							<form id="contactForm" name="sentMessage" method="POST" action="/api/contact"
+							<form id="contactForm" name="sentMessage" 
 								novalidate="novalidate">
 								<div class="row">
 
@@ -734,6 +734,37 @@ s0.parentNode.insertBefore(s1,s0);
 })();
 </script>
 <!--End of Tawk.to Script-->
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(function() {
+    $('#contactForm').submit(function(event) {
+      event.preventDefault(); // Stop default form submission
+
+      // Get form data
+      var name = $('#name').val();
+      var email = $('#email').val();
+      var phone = $('#phone').val();
+      var message = $('#message').val();
+
+      // Send the data using AJAX to your API
+      $.ajax({
+        url: '/api/contact',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ name, email, phone, message }),
+        success: function(response) {
+          $('#success').html("<p style='color: green;'>Message sent successfully!</p>");
+          $('#contactForm')[0].reset(); // Clear form
+        },
+        error: function(xhr) {
+          $('#success').html("<p style='color: red;'>Error: " + xhr.responseJSON?.error || "Something went wrong" + "</p>");
+        }
+      });
+    });
+  });
+</script>
 </body>
 
 </html>
