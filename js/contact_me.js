@@ -23,9 +23,9 @@ $(function() {
         url: "/api/contact",
         type: "POST",
         data: {
-          first_name: name,
-          phone: phone,
+          name: name,
           email: email,
+          phone: phone,
           message: message
         },
         cache: false,
