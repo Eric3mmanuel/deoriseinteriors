@@ -20,7 +20,7 @@ $(function() {
       $this = $("#sendMessageButton");
       $this.prop("disabled", true); // Disable submit button until AJAX call is complete to prevent duplicate messages
       $.ajax({
-        url: "/api/contact",
+        url: ""https://api.web3forms.com/submit",
         type: "POST",
         data: {
           name: name,
