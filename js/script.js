@@ -1,4 +1,4 @@
-const providerOptions = {
+<!--const providerOptions = {
   walletconnect: {
     package: window.WalletConnectProvider.default,
     options: {
@@ -32,5 +32,5 @@ connectWalletBtn.addEventListener("click", async () => {
   } catch (err) {
     console.error("Wallet connection failed", err);
   }
-});
+});-->
 
