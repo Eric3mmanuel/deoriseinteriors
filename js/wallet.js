@@ -2,7 +2,7 @@ import { createWeb3Modal } from "https://unpkg.com/@web3modal/html?module";
 
 // Setup modal
 const modal = createWeb3Modal({
-  projectId: "YOUR_WALLETCONNECT_PROJECT_ID", // from WalletConnect Cloud
+  projectId: "60d5a2b08a9b1f03343157079343ea20", // from WalletConnect Cloud
   themeMode: "dark", // or 'light'
   themeColorMode: "auto", // auto-switching
 });
