@@ -34,21 +34,3 @@ connectWalletBtn.addEventListener("click", async () => {
   }
 });
 
-//After successful connection,get the wallet address
-
-const provider = await web3Modal.connect();
-const web3Provider = new ethers.providers.Web3Provider(provider);
-const signer = web3Provider.getSigner();
-
-const userAddress = await signer.getAddress();
-console.log("User Address:", userAddress);
-
-document.getElementById("walletAddress").innerText = "Wallet: " + userAddress;
-
-//show balance 
-
-const balance = await web3Provider.getBalance(userAddress);
-const ethBalance = ethers.utils.formatEther(balance);
-console.log("Balance:", ethBalance);
-
-document.getElementById("walletBalance").innerText = "Balance: " + ethBalance + " ETH";
