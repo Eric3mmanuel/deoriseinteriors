@@ -1,3 +1,4 @@
+console.log('wallet.js is working!');
 import {
   createWeb3Modal,
   defaultConfig
