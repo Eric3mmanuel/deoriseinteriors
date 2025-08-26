@@ -2942,3 +2942,30 @@ select.mobile-device {
   word-break: break-word;
   color: #cccccc;
 }
+
+pi-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #6f42c1; /* Pi purple */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+  }
+
+  .pi-btn:hover {
+    background-color: #5a34a3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+  }
+
+  .pi-logo {
+    width: 20px;
+    height: 20px;
+  }
