@@ -39,6 +39,8 @@ customer satisfaction .">
 <script src="https://cdn.jsdelivr.net/npm/ethers@6.7.0/dist/ethers.umd.min.js"></script>
 <script type="module" src="js/wallet.js"></script>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 
 </head>
@@ -792,10 +794,25 @@ s0.parentNode.insertBefore(s1,s0);
 //Create Payment 
 
 const paymentData = {
-    amount: number,  /* Pi Amount being Transacted */
-    memo: string, /* "Any information that you want to add to payment" */
-    metadata: object {}, /* { Special Information: 1234, ... } */
+    amount: 0.005,  /* Pi Amount being Transacted */
+    memo: "payment for product", /* "Any information that you want to add to payment" */
+    metadata: {orderId:1}, /* { Special Information: 1234, ... } */
 };
+
+
+//Server side approval 
+
+const onReadyForServerApproval = (paymentId) => {
+    console.log("onReadyForServerApproval", paymentId);
+    axiosClient.post('/payments/approve', {paymentId}, config);
+  }
+
+//server side completion
+
+const onReadyForServerCompletion = (paymentId, txid) => {
+    console.log("onReadyForServerCompletion", paymentId, txid);
+    axiosClient.post('/payments/complete', {paymentId, txid}, config);
+  }
 
 // Callbacks the developer needs to implement:
 const paymentCallbacks = {
@@ -811,19 +828,6 @@ Pi.createPayment(paymentData, paymentCallbacks).then(function(payment) {
     console.error(error);
   });
 
-//Server side approval 
-
-const onReadyForServerApproval = (paymentId) => {
-    console.log("onReadyForServerApproval", paymentId);
-    axiosClient.post('/payments/approve', {paymentId}, config);
-  }
-
-//server side completion
-
-const onReadyForServerCompletion = (paymentId, txid) => {
-    console.log("onReadyForServerCompletion", paymentId, txid);
-    axiosClient.post('/payments/complete', {paymentId, txid}, config);
-  }
 
 
     </script>
