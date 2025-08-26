@@ -39,6 +39,8 @@ customer satisfaction .">
 <script src="https://cdn.jsdelivr.net/npm/ethers@6.7.0/dist/ethers.umd.min.js"></script>
 <script type="module" src="js/wallet.js"></script>
 
+<script src="https://sdk.minepi.com/pi-sdk.js"></script>
+
 </head>
 
 <body id="page-top" class="politics_version">
@@ -760,6 +762,72 @@ s0.parentNode.insertBefore(s1,s0);
   <script type="module" src="js/wallet.js"></script>
 
   <script type="module" src="./wallet/assets/index-ChuNFJAd.js"></script>
+
+<script> Pi.init({ version: "2.0", sandbox: true }) </script>
+
+<script> 
+        // Authenticate the user, and get permission to request payments from them
+        const scopes = ['payments','username'];
+
+        // Read more about this callback in the SDK reference:
+        function onIncompletePaymentFound(payment) { 
+            console.log('incomplete payment found')
+            paymentId = payment.identifier
+            txid = payment.transaction.txid
+            $.post('/payment/complete',
+                    {
+                        paymentId: paymentId,
+                        txid: txid,
+                        debug: 'cancel'
+                    }
+                )
+        };
+        Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
+          console.log(`Hi there! You're ready to make payments!`)
+          const accessToken = auth.accessToken
+        }).catch(function(error) {
+          console.error(error);
+        });
+
+//Create Payment 
+
+const paymentData = {
+    amount: number,  /* Pi Amount being Transacted */
+    memo: string, /* "Any information that you want to add to payment" */
+    metadata: object {}, /* { Special Information: 1234, ... } */
+};
+
+// Callbacks the developer needs to implement:
+const paymentCallbacks = {
+    onReadyForServerApproval,
+    onReadyForServerCompletion,
+    onCancel,
+    onError
+    };
+
+Pi.createPayment(paymentData, paymentCallbacks).then(function(payment) {
+    console.log(payment)
+  }).catch(function(error) {
+    console.error(error);
+  });
+
+//Server side approval 
+
+const onReadyForServerApproval = (paymentId) => {
+    console.log("onReadyForServerApproval", paymentId);
+    axiosClient.post('/payments/approve', {paymentId}, config);
+  }
+
+//server side completion
+
+const onReadyForServerCompletion = (paymentId, txid) => {
+    console.log("onReadyForServerCompletion", paymentId, txid);
+    axiosClient.post('/payments/complete', {paymentId, txid}, config);
+  }
+
+
+    </script>
+
 
 
 </body>
