@@ -43,6 +43,45 @@ customer satisfaction .">
 
 <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 
+<script>
+
+    const Pi = window.Pi;
+
+    Pi.init({ version: "2.0", sandbox: true });
+
+    async function loginWithPi() {
+      const scopes = ['username']; 
+      function onIncompletePaymentFound(payment) {
+        console.log("Incomplete payment:", payment);
+      }
+
+      try {
+        const auth = await Pi.authenticate(scopes, onIncompletePaymentFound);
+        console.log("Auth result:", auth);
+
+        // Send token to backend
+        const response = await fetch("/verify-pi-login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ accessToken: auth.accessToken })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          document.getElementById("user-info").innerText =
+            "Hello, " + data.user.username;
+        } else {
+          document.getElementById("user-info").innerText =
+            "Login failed: " + data.error;
+        }
+
+      } catch (error) {
+        console.error("Login failed:", error);
+      }
+    }
+  </script>
+
 </head>
 
 <body id="page-top" class="politics_version">
@@ -161,6 +200,9 @@ customer satisfaction .">
 		</div>
 
 	</section>
+
+<button onclick="loginWithPi()">Login with Pi</button>
+  <p id="user-info"></p>
 
 
 
