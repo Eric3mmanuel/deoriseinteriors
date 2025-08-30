@@ -10,11 +10,15 @@ export default async function handler(req, res) {
   try {
     // Call Pi API to verify the token
     const response = await axios.get("https://api.minepi.com/v2/me", {
-      headers: { Authorization: `Bearer ${accessToken}` }
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "X-API-Key": process.env.PI_API_KEY, // 🔑 Add your Pi API key here
+      },
     });
 
-    const piUser = response.data; // { uid, username }
+    const piUser = response.data; // { uid, username, ... }
     return res.status(200).json({ success: true, user: piUser });
+
   } catch (error) {
     console.error(error.response?.data || error.message);
     return res.status(401).json({ success: false, error: "Invalid access token" });
