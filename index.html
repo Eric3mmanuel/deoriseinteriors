@@ -77,12 +77,13 @@ customer satisfaction .">
         console.error("Login failed:", error);
       }
     }
-        Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
+       //* Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
           console.log(`Hi there! You're ready to make payments!`)
           const accessToken = auth.accessToken
         }).catch(function(error) {
           console.error(error);
-        });
+        });*//
+
   </script>
 
 </head>
