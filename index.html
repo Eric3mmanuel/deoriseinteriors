@@ -44,9 +44,6 @@ customer satisfaction .">
 <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 
 <script>
-
-    const Pi = window.Pi;
-
     Pi.init({ version: "2.0", sandbox: true });
 
     async function loginWithPi() {
@@ -60,7 +57,7 @@ customer satisfaction .">
         console.log("Auth result:", auth);
 
         // Send token to backend
-        const response = await fetch("/verify-pi-login", {
+        const response = await fetch("/api/verify-pi-login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ accessToken: auth.accessToken })
