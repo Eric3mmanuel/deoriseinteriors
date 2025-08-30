@@ -77,6 +77,12 @@ customer satisfaction .">
         console.error("Login failed:", error);
       }
     }
+        Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
+          console.log(`Hi there! You're ready to make payments!`)
+          const accessToken = auth.accessToken
+        }).catch(function(error) {
+          console.error(error);
+        });
   </script>
 
 </head>
@@ -813,7 +819,7 @@ s0.parentNode.insertBefore(s1,s0);
 
   <script type="module" src="./wallet/assets/index-ChuNFJAd.js"></script>
 
-
+/*
 //PI NETWORK 
 
 <script> Pi.init({ version: "2.0", sandbox: true }) </script>
@@ -883,6 +889,8 @@ Pi.createPayment(paymentData, paymentCallbacks).then(function(payment) {
 document.getElementById("payWithPiBtn").addEventListener("click", payWithPi);
 </script>
     </script>
+
+*/
 
 
 
