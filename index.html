@@ -811,13 +811,13 @@ s0.parentNode.insertBefore(s1,s0);
       const data = await response.json();
 
       // Show whatever backend returns
-      document.getElementById("user-info").innerText =
-        "Backend response: " + JSON.stringify(data);
-
-    } catch (error) {
-      document.getElementById("user-info").innerText =
-        "Login failed: " + error.message;
-    }
+      if (data.success) {
+  document.getElementById("user-info").innerText =
+    "Hello, " + data.username;
+} else {
+  document.getElementById("user-info").innerText =
+    "Login failed: " + data.error;
+}
   }
 </script>
 /*
