@@ -808,14 +808,14 @@ s0.parentNode.insertBefore(s1,s0);
         });
 
         const data = await response.json();
-
-        if (data.success) {
-          document.getElementById("user-info").innerText =
-            "Hello, " + data.user.username;
-        } else {
-          document.getElementById("user-info").innerText =
-            "Login failed: " + data.error;
-        }
+if (data.success) {
+  // Show the entire backend response for debugging
+  document.getElementById("user-info").innerText =
+    "Backend returned: " + JSON.stringify(data.user);
+} else {
+  document.getElementById("user-info").innerText =
+    "Login failed: " + data.error + " | Full response: " + JSON.stringify(data);
+}
 
       } catch (error) {
         console.error("Login failed:", error);
