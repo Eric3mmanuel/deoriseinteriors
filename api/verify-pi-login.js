@@ -21,6 +21,7 @@ export default async function handler(req, res) {
     });
 
     const piUser = response.data; // { uid, username }
+console.log("Pi user from API:", response.data);
     return res.status(200).json({ success: true, user: piUser });
 
   } catch (error) {
