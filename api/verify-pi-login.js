@@ -16,13 +16,18 @@ export default async function handler(req, res) {
     const response = await axios.get("https://api.minepi.com/v2/me", {
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        "X-API-Key": process.env.PI_API_KEY   // ✅ Add your Pi API key from Vercel env
+        "X-API-Key": process.env.PI_API_KEY,  // ✅ keep your API key in Vercel env
       }
     });
 
-    const piUser = response.data; // { uid, username }
-console.log("Pi user from API:", response.data);
-    return res.status(200).json({ success: true, user: piUser });
+    const piUser = response.data; // e.g. { uid, username }
+
+    // Only send back what frontend needs
+    return res.status(200).json({
+      success: true,
+      username: piUser.username,
+      uid: piUser.uid,
+    });
 
   } catch (error) {
     console.error("PI verification error:", error.response?.data || error.message);
