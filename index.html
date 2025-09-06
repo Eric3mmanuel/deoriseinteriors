@@ -43,42 +43,7 @@ customer satisfaction .">
 
 <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 
-<script>
-    Pi.init({ version: "2.0", sandbox: true });
 
-    async function loginWithPi() {
-      const scopes = ['username']; 
-      function onIncompletePaymentFound(payment) {
-        console.log("Incomplete payment:", payment);
-      }
-
-      try {
-        const auth = await Pi.authenticate(scopes, onIncompletePaymentFound);
-        console.log("Auth result:", auth);
-
-        // Send token to backend
-        const response = await fetch("/api/verify-pi-login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ accessToken: auth.accessToken })
-        });
-
-        const data = await response.json();
-
-        if (data.success) {
-          document.getElementById("user-info").innerText =
-            "Hello, " + data.user.username;
-        } else {
-          document.getElementById("user-info").innerText =
-            "Login failed: " + data.error;
-        }
-
-      } catch (error) {
-        console.error("Login failed:", error);
-      }
-    }
-
- </script>
        //* Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
          // console.log(`Hi there! You're ready to make payments!`)
           //const accessToken = auth.accessToken
@@ -821,6 +786,43 @@ s0.parentNode.insertBefore(s1,s0);
   <script type="module" src="js/wallet.js"></script>
 
   <script type="module" src="./wallet/assets/index-ChuNFJAd.js"></script>
+
+<script>
+    Pi.init({ version: "2.0", sandbox: true });
+
+    async function loginWithPi() {
+      const scopes = ['username']; 
+      function onIncompletePaymentFound(payment) {
+        console.log("Incomplete payment:", payment);
+      }
+
+      try {
+        const auth = await Pi.authenticate(scopes, onIncompletePaymentFound);
+        console.log("Auth result:", auth);
+
+        // Send token to backend
+        const response = await fetch("/api/verify-pi-login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ accessToken: auth.accessToken })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          document.getElementById("user-info").innerText =
+            "Hello, " + data.user.username;
+        } else {
+          document.getElementById("user-info").innerText =
+            "Login failed: " + data.error;
+        }
+
+      } catch (error) {
+        console.error("Login failed:", error);
+      }
+    }
+
+ </script>
 
 /*
 //PI NETWORK 
