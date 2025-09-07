@@ -797,7 +797,7 @@ s0.parentNode.insertBefore(s1,s0);
     Pi.init({ version: "2.0", sandbox: true });  
   
     async function loginWithPi() {  
-      const scopes = ['username'];   
+      const scopes = ['username','payments','wallet_address'];   
       function onIncompletePaymentFound(payment) {  
         console.log("Incomplete payment:", payment);  
       }  
